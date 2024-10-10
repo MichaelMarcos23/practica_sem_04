@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,12 +25,14 @@ public class ProductoController {
 	@Autowired
 	private CategoriaService categoriaService;
 	
+	//LISTAR PRODUCTO
 	@GetMapping("/")
 	public String listarProducto(Model model) {
 		List<ProductoEntity>listaProducto = productoService.listarProducto();
 		model.addAttribute("listaprod", listaProducto);
 		return "lista_productos";
 	}
+	//REGISTRAR PRODUCTO
 	@GetMapping("/registrar_producto")
 	public String mostrarRegistrarProducto(Model model) {
 		List<CategoriaEntity>listaCategoria = categoriaService.listarCategoria();
@@ -46,5 +49,33 @@ public class ProductoController {
 		return "redirect:/producto/";
 		
 	}
+	//ACTUALIZAR PRODUCTO
+	@GetMapping("/detalle_producto/{id}")
+	public String verDetalle(Model model, @PathVariable("id") Integer id) {
+		ProductoEntity user = productoService.buscarProductoPorId(id);
+		model.addAttribute("user", user);
+		return "detalle_producto";
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
